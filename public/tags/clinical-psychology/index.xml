@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Clinical Psychology on James R. Rae</title>
+    <link>/tags/clinical-psychology/</link>
+    <description>Recent content in Clinical Psychology on James R. Rae</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019</copyright>
+    <lastBuildDate>Wed, 01 Mar 2017 00:00:00 -0500</lastBuildDate>
+    
+	<atom:link href="/tags/clinical-psychology/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A Client-Level Session-by-Session Evaluation of Behavioral Activation&#39;s Mechanism of Action</title>
+      <link>/publication/2017-santos-etal/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 -0500</pubDate>
+      
+      <guid>/publication/2017-santos-etal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reinforcement Matters: A preliminary, Laboratory-Based Component-Process Analysis of Functional Analytic Psychotherapy&#39;s Model of Social Connection</title>
+      <link>/publication/2015-haworth-etal/</link>
+      <pubDate>Thu, 01 Oct 2015 00:00:00 -0400</pubDate>
+      
+      <guid>/publication/2015-haworth-etal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A Brief, Interpersonally Oriented Mindfulness Intervention Incorporating Functional Analytic Psychotherapy&#39;s Model of Awareness, Courage and Love</title>
+      <link>/publication/2015-kohlenberg-etal/</link>
+      <pubDate>Wed, 01 Apr 2015 00:00:00 -0400</pubDate>
+      
+      <guid>/publication/2015-kohlenberg-etal/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
