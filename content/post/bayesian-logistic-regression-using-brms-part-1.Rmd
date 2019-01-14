@@ -1,0 +1,138 @@
+---
+date:    2019-01-10
+lastmod: 2019-01-10
+title: "Bayesian Logistic Regression using brms, Part 1"
+authors: ["James R. Rae", "Nils Karl Reimer"]
+#description: This is a guest post with Nils Karl Reimer in which you learn how to fit Bayesian logistic regression models using the brms package in R.
+slug: bayesian-logistic-regression-using-brms-part-1
+categories:
+  - Workshop
+tags:
+  - Bayesian data analysis
+  - Logistic regression
+  - R
+  - brms
+  - Implicit Association Test
+mathjax: true
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+**This is the first of a series of posts on how to fit, interpret, and evaluate Bayesian logistic regression models using the brms package in R. This is a post written with [Nils Karl Reimer](https://nilsreimer.com/).**
+
+
+This post provides a gentle introduction to fitting Bayesian logistic regression models using the `brms` package in R [(B&uuml;rkner, 2017)](https://doi.org/10.18637/jss.v080.i01). Why use `brms`? Besides being an excellent package with lots of cool features, the specification of regression models in `brms` closely mirrors the syntax you may already use to fit regression models in R, such as with the `lm()` or `glm()` commands. This should make a first pass at fitting Bayesian logistic regression models easier.
+
+Before jumping into the tutorial, a couple of caveats: We're assuming that you have some familiarity with (1) the R statistical computing environment, (2) interpreting logistic regression models, and (3) key concepts in Bayesian statistical analyses. If you need a refresher on R, see [here](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf). For information on logistic regression, perhaps take a look at this introductory [tutorial](https://www.theanalysisfactor.com/introduction-to-logistic-regression/). If you'd like some background on Bayesian methods and are short on time, We'd suggest this [article](https://link.springer.com/article/10.3758/s13423-016-1221-4). For a more thorough coverage, see [McElreath (2017)](https://xcelab.net/rm/statistical-rethinking/), [Lambert (2018)](https://uk.sagepub.com/en-gb/eur/a-student%E2%80%99s-guide-to-bayesian-statistics/book245409), or---if you're ready for the deep dive---Bayesian Data Analysis by [Gelman and colleagues (2016)](http://www.stat.columbia.edu/~gelman/book/).
+
+OK, let's dive in!
+
+## The Data
+
+We're going to use some data collected via [Project Implicit](https://implicit.harvard.edu/implicit/)---a non-profit organization that operates a virtual laboratory where people can take various versions of the Implicit Association Test (IAT). Project Implicit kindly makes the data from this site publicly available on the [Open Science Framework](https://osf.io/y9hiq/). Anyone can use it (just acknowledge Project Implicit in any publications!) and there's a lot of it. You should check it out!
+
+This tutorial uses data from the Sexuality IAT collected during 2017. If you're not familiar with this particular version of the IAT, it measures someone's relative preference for straight people over gay people. Scores above zero indicate a preference for straight people over gay people, a score of zero indicates no preference for either group, and scores below zero indicate a preference for gay people over straight people. Specifically, we're going to look at whether implicit straight/gay attitudes predicts attitude-relevant policy positions.
+
+The raw data for the Sexuality IAT task is available [here](https://osf.io/ctqxo/). However, Bayesian analyses can be quite computationally intensive. As there is data from over 300,000 respondents in the 2017 data set, we'll be working with a random draw of 5,000 sessions so it's less time intensive for you to try these analyses for yourself. We've also done some data cleaning and recoding. If you want to see how we derived the data for this example, see [here](https://github.com/jamesrrae/sexuality-iat-website-data/).
+
+## Getting Ready for the Analyses
+
+First, we're going to have a couple of packages handy to get started:
+
+```{r message = FALSE}
+library(brms); library(tidyverse); library(tidybayes); library(ggplot2); library(LaplacesDemon)
+```
+
+As you already know, we're going to need the `brms` package to fit our logistic regression models. Critically, `brms` relies on Stan [(Stan Development Team, 2017)](https://mc-stan.org/), which is a great tool for fitting Bayesian analyses. For details on installing Stan, see [here](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started). Once you've done these steps you'll need to have the `brms` library loaded. Another option is to use the free RStudio cloud service---they already have Stan installed. For details, see [here](https://andrewgelman.com/2018/10/12/stan-on-the-web-for-free-thanks-to-rstudio/).
+
+Now, let's read the data into R:
+
+```{r message = FALSE}
+lrsmall <- read_csv(url("https://raw.githubusercontent.com/jamesrrae/sexuality-iat-website-data/master/lrsmall.csv"))
+```
+
+Now, let's get a sense of the data:
+
+```{r}
+print(lrsmall)
+```
+
+Ok, so we have two variables that we'll use for our logistic regression analysis. `Allowed` indexes self-reported answers to the question "Do you think it should be legal for same-sex partners to adopt a child?". We'll just focus on two response options: 0 = "Should not be legal" and 1 = "Should be legal". The variable `D.z` is standardized IAT scores calculated by subtracting off the mean and dividing by the standard deviation. 
+
+Next, let's look at the correlation between our two variables. This will help us know what to expect before doing our logistic regression analysis:
+
+```{r}
+cor.test(lrsmall$Allowed,lrsmall$D.z)
+```
+
+The variables are negatively correlated at about .20. And this makes sense---people with stronger implicit preferences for straight people over gay people are less likely to report that it's OK for same-sex couples to adopt.
+
+## Using brms for Logistic Regression Analysis
+
+First, we must set some priors for the parameters in our logistic regression model---the intercept and slope. We follow common [prior choice recommendations](https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations) for the intercept and slope:
+
+$$ \beta \sim \text{Student}(3, 0, 2.5) $$
+
+This prior is a Student-t distribution (bell-shaped but with fatter tails than a normal distribution) with 3 degrees of freedom, a mean of 0, and scale of 2.5. This is a pretty wide prior. To see why, let's look at the distribution: 
+
+```{r}
+x_values <- seq(-15,15, length.out = 1000)
+data.frame(x_values) %>%
+ggplot(aes(x_values))+
+  stat_function(fun=dst, args=list(nu=3,mu=0,sigma=2.5))
+```
+
+As you can see from the figure, this prior roughly expresses an expectation most values to be between -10 and +10. However, as pointed out by [Gelman and colleagues (2008)](https://projecteuclid.org/download/pdfview_1/euclid.aoas/1231424214), even a change from -5 to 0 correspondents to a change on a probability scale of .01 to .50. It would be pretty huge effect if a 1 unit change in `D.z` (i.e., a 1 standard deviation difference on the IAT) corresponded to nearly .50 change in the probability of supporting adoption rights for same-sex couples. For further discussion of these priors, see [Gelman et al. 2008](https://projecteuclid.org/download/pdfview_1/euclid.aoas/1231424214). 
+
+Now, let's specify these priors in a format that brms can use when we run the model:
+
+```{r}
+m1priors <- c(
+  prior(student_t(3, 0, 2.5), class = "Intercept"),
+  prior(student_t(3, 0, 2.5), class = "b")
+)
+```
+
+Ok, now we're finally ready to fit our model (be warned, this could take a bit of time!):
+
+```{r}
+m1 <- brm(
+  Allowed ~ D.z,
+  data = lrsmall,
+  prior = m1priors,
+  family = "bernoulli",
+  seed = 123 # Adding a seed makes results reproducible.
+) 
+```
+
+So in the model above, we've specified that we're regressing `Allowed` on `D.z` using the priors in `m1priors`. You'll also notice that we had to specify a likelihood, which is set by the `family` argument. As we had a dichotomous outcome, we set this to `"bernoulli"`. Finally, we used a `seed` to make the results the same each time we run this particular model.
+
+Ok, now it's time to look at the results. First, let's just look at the summary of out model:
+
+```{r}
+summary(m1)
+```
+
+First of all, this summary provides some really useful information about the model, including the number of observations, chains, and iterations. For a more thorough description of this information, see the `brms` manual [here](https://cran.r-project.org/web/packages/brms/brms.pdf).  
+
+If you're just getting started with Bayesian data analysis, the most familiar information is going to be under the heading `Population-Level Effects`. Here you'll find summary information about the regression slope and intercept. First of all, the `Rhat` values near 1.0 indicates that we have convergence. If `Rhat` values get too large (see [here](https://blog.stata.com/2016/05/26/gelman-rubin-convergence-diagnostic-using-multiple-chains/) for a suggestion of 1.2 or 1.1) then we should be worried. Second, we see that the most credible values of the slope are negative, which is good because above we observed that `D.z` was negatively correlated with `Allowed`. 
+
+So while our logistic regression model indicates that there is a negative relationship between `Allowed` and `D.z`, the summary of the model has estimates on the log-odds scale, which can be difficult to interpret. So let's use the `tidybayes` package [(Kay, 2018)](http://mjskay.github.io/tidybayes/) to put our results on the odds scale:
+
+```{r}
+parameters <- m1 %>% gather_draws(b_D.z) %>% median_hdi()
+print(exp(parameters[c(".value",".lower",".upper")])) # exp() converts log-odds to odds
+```
+
+On the odds scale, we are comparing our estimate to 1.0. If the most credible value of the slope is mostly below 1.0, then we infer that there's a negative association between `Allowed` and `D.z`. This is the case here as we are 95% sure (given the data and the model) that the slope is roughly between .28 and .40.
+
+Finally, let's make a basic plot that shows the model predictions. Conveniently, `brms` has a command that makes this quite easy:
+
+```{r}
+plot(marginal_effects(m1), points = TRUE, rug = TRUE)
+```
+
+This plot shows the predicted probability of supporting adoption for same-sex couples at different levels of `D.z`. First, notice that for values below zero on the x-axis (i.e., below the mean IAT score) the support of this policy is quite high: near 1.0. Then, notice that the probability of supporting adoption right for same-sex couples drops, eventually bottoming out at about .50 for those respondents that have the strongest preference for straight people over gay people. Finally, while these are less useful when dealing with a large sample like we're using here, the `points` and `rug` arguments plot the data data alongside the model predictions. You can see from the black dots show responses on the `Allowed` variable (either 0 or 1), while the black vertical lines at the bottom of the plot show scores on the `D.z` variable. These additional features are helpful for making sure that the model is providing a sensible fit to the data.
+
+Ok, so that's a basic logistic regression model using brms. Future posts might address some of the issues that we didn't touch on here, such as what to do about missing data? How to create publication-worthy logistic regression plots? And what additional model assessments can we do with `brms`?
