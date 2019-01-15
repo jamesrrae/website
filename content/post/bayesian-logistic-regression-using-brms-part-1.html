@@ -10,7 +10,6 @@
 
 
 
-<meta name="date" content="2019-01-14" />
 
 <title>Bayesian Logistic Regression using brms, Part 1</title>
 
@@ -185,7 +184,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Bayesian Logistic Regression using brms, Part 1</h1>
-<h4 class="date"><em>2019-01-14</em></h4>
+<h4 class="date"><em>2019-14-01</em></h4>
 
 </div>
 
@@ -269,8 +268,8 @@ ggplot(aes(x_values))+
 <pre><code>## Start sampling</code></pre>
 <pre><code>## 
 ## SAMPLING FOR MODEL 'd59bd52f6c6c61f33001490da41f7746' NOW (CHAIN 1).
-## Chain 1: Gradient evaluation took 0.001 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 10 seconds.
+## Chain 1: Gradient evaluation took 0 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
 ## Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
 ## Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
 ## Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
@@ -283,13 +282,13 @@ ggplot(aes(x_values))+
 ## Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
 ## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
-## Chain 1:  Elapsed Time: 2.006 seconds (Warm-up)
-## Chain 1:                1.687 seconds (Sampling)
-## Chain 1:                3.693 seconds (Total)
+## Chain 1:  Elapsed Time: 1.846 seconds (Warm-up)
+## Chain 1:                1.612 seconds (Sampling)
+## Chain 1:                3.458 seconds (Total)
 ## 
 ## SAMPLING FOR MODEL 'd59bd52f6c6c61f33001490da41f7746' NOW (CHAIN 2).
-## Chain 2: Gradient evaluation took 0 seconds
-## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
+## Chain 2: Gradient evaluation took 0.001 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 10 seconds.
 ## Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
 ## Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
 ## Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
@@ -302,13 +301,13 @@ ggplot(aes(x_values))+
 ## Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
 ## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
-## Chain 2:  Elapsed Time: 1.959 seconds (Warm-up)
-## Chain 2:                1.89 seconds (Sampling)
-## Chain 2:                3.849 seconds (Total)
+## Chain 2:  Elapsed Time: 1.916 seconds (Warm-up)
+## Chain 2:                1.936 seconds (Sampling)
+## Chain 2:                3.852 seconds (Total)
 ## 
 ## SAMPLING FOR MODEL 'd59bd52f6c6c61f33001490da41f7746' NOW (CHAIN 3).
-## Chain 3: Gradient evaluation took 0.001 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 10 seconds.
+## Chain 3: Gradient evaluation took 0 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
 ## Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
 ## Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
 ## Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
@@ -321,9 +320,9 @@ ggplot(aes(x_values))+
 ## Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
 ## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
-## Chain 3:  Elapsed Time: 2.025 seconds (Warm-up)
-## Chain 3:                1.823 seconds (Sampling)
-## Chain 3:                3.848 seconds (Total)
+## Chain 3:  Elapsed Time: 1.86 seconds (Warm-up)
+## Chain 3:                1.821 seconds (Sampling)
+## Chain 3:                3.681 seconds (Total)
 ## 
 ## SAMPLING FOR MODEL 'd59bd52f6c6c61f33001490da41f7746' NOW (CHAIN 4).
 ## Chain 4: Gradient evaluation took 0.001 seconds
@@ -340,9 +339,9 @@ ggplot(aes(x_values))+
 ## Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
 ## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
-## Chain 4:  Elapsed Time: 1.866 seconds (Warm-up)
-## Chain 4:                1.734 seconds (Sampling)
-## Chain 4:                3.6 seconds (Total)</code></pre>
+## Chain 4:  Elapsed Time: 1.894 seconds (Warm-up)
+## Chain 4:                1.753 seconds (Sampling)
+## Chain 4:                3.647 seconds (Total)</code></pre>
 <p>So in the model above, we’ve specified that we’re regressing <code>Allowed</code> on <code>D.z</code> using the priors in <code>m1priors</code>. You’ll also notice that we had to specify a likelihood, which is set by the <code>family</code> argument. As we had a dichotomous outcome, we set this to <code>&quot;bernoulli&quot;</code>. Finally, we used a <code>seed</code> to make the results the same each time we run this particular model.</p>
 <p>Ok, now it’s time to look at the results. First, let’s just look at the summary of out model:</p>
 <pre class="r"><code>summary(m1)</code></pre>
