@@ -1,6 +1,6 @@
 ---
-date:    2019-14-01
-lastmod: 2019-14-01
+date:    2019-01-14
+lastmod: 2019-01-14
 title: "Bayesian Logistic Regression using brms, Part 1"
 authors: ["James R. Rae", "Nils Karl Reimer"]
 #description: This is a guest post with Nils Karl Reimer in which you learn how to fit Bayesian logistic regression models using the brms package in R.
