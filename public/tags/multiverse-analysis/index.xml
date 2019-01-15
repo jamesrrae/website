@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Developmental Psychology on James R. Rae</title>
-    <link>/tags/developmental-psychology/</link>
-    <description>Recent content in Developmental Psychology on James R. Rae</description>
+    <title>Multiverse Analysis on James R. Rae</title>
+    <link>/tags/multiverse-analysis/</link>
+    <description>Recent content in Multiverse Analysis on James R. Rae</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2019</copyright>
     <lastBuildDate>Tue, 15 Jan 2019 00:00:00 -0500</lastBuildDate>
     
-	<atom:link href="/tags/developmental-psychology/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/multiverse-analysis/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       <pubDate>Tue, 15 Jan 2019 00:00:00 -0500</pubDate>
       
       <guid>/publication/2019-rae-etal/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Test-Retest Reliability and Predictive Validity of the Implicit Association Test in Children</title>
-      <link>/publication/2018-rae-olson/</link>
-      <pubDate>Thu, 01 Feb 2018 00:00:00 -0500</pubDate>
-      
-      <guid>/publication/2018-rae-olson/</guid>
       <description></description>
     </item>
     

@@ -11,6 +11,15 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Predicting Early Childhood Gender Transitions</title>
+      <link>/publication/2019-rae-etal/</link>
+      <pubDate>Tue, 15 Jan 2019 00:00:00 -0500</pubDate>
+      
+      <guid>/publication/2019-rae-etal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Bayesian Logistic Regression using brms, Part 1</title>
       <link>/post/bayesian-logistic-regression-using-brms-part-1/</link>
       <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
@@ -359,15 +368,6 @@ print(exp(parameters[c(&amp;quot;.value&amp;quot;,&amp;quot;.lower&amp;quot;,&am
       <pubDate>Fri, 12 Jun 2015 00:00:00 -0400</pubDate>
       
       <guid>/publication/2015-rae-lonborg/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>A Brief, Interpersonally Oriented Mindfulness Intervention Incorporating Functional Analytic Psychotherapy&#39;s Model of Awareness, Courage and Love</title>
-      <link>/publication/2015-kohlenberg-etal/</link>
-      <pubDate>Wed, 01 Apr 2015 00:00:00 -0400</pubDate>
-      
-      <guid>/publication/2015-kohlenberg-etal/</guid>
       <description></description>
     </item>
     
