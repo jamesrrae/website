@@ -58,7 +58,7 @@ url_slides = ""
 url_video = ""
 url_poster = ""
 url_source = ""
-url_custom = [{name = "Supplemental Material", url = "pdf/2019-Rae-etal-sm.pdf"}, {name = "Open Science Framework", url = "https://osf.io/m6zac/"}]
+url_custom = [{name = "Supplemental Material", url = "pdf/2019-Rae-etal-sm.pdf"}, {name = "Open Science Framework", url = "https://osf.io/m6zac/"}, {name = "FAQ", url = "pdf/2019-Rae-etal-faq.pdf"}]
 
 # Custom links (optional).
 # Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
