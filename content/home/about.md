@@ -11,10 +11,8 @@ weight = 5
 [interests]
   interests = [
     "Social Psychology",
+    "R stats",
     "Social Cognition",
-    "Diversity",
-    "Intergroup Contact",
-    "Applied Statistics"
   ]
 
 # List your qualifications (such as academic degrees).
@@ -37,10 +35,5 @@ weight = 5
 
 # About
 
-I am a social psychologist and Postdoctoral Research Associate with [Buju Dasgupta in the Implicit Social Cognition labratory](https://people.umass.edu/nd/) at UMass Amherst.
+I am a Behavioral Scientist at [Zillow Group](https://www.zillow.com/research/). Previously, I was a Postdoctoral Research Associate at the University of Oxford and at the University of Massachusetts Amherst. I received my PhD in social/personality psychology from the University of Washington.  
 
-My research focuses on the role of cross-group friendships and relationships (i.e., intergroup contact) as well as influences of the broader social environment (e.g., diversity or segregation)
-in shaping social cognition. I investigate these topics using advanced quantitative methods and am especially interested in Bayesian methods.
-
-
-My full CV is available [here](pdf/cv.pdf). 

@@ -53,18 +53,18 @@ enableGitInfo = false
 
   # Your details.
   name = "James R. Rae"
-  role = "Postdoctoral Research Associate"
+  role = "Behavioral Scientist"
 
   # Organizations/Affiliations.
   #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-  organizations = [ { name = "University of Massachusetts Amherst", url = "" } ]
+  organizations = [ { name = "Zillow Group", url = "" } ]
 
   gravatar = false  # Get your avatar from Gravatar.com? (true/false)
   avatar = "me.jpg"  # Specify an avatar image (in `static/img/` folder) or delete value to disable avatar.
 
   # Details for the Contact Widget
-  email = "jrrae@umass.edu"
-  address = "135 Hicks Way/401 Tobin Hall, University of Massachusetts Amherst, Amherst, MA 01003 USA"
+  email = "james.richard.rae@gmail.com"
+  address = ""
   office_hours = ""
   phone = ""
   skype = ""
